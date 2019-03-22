@@ -8,9 +8,14 @@ import "./Oraclize.sol";
 
 contract Ownable {
     //  TODO's
+     address owner;
     //  1) create a private '_owner' variable of type address with a public getter function
     //  2) create an internal constructor that sets the _owner var to the creater of the contract 
     //  3) create an 'onlyOwner' modifer that throws if called by any account other than the owner.
+    modifier onlyOwner(){
+            require(msg.sender == owner);
+            _;
+    }
     //  4) fill out the transferOwnership function
     //  5) create an event that emits anytime ownerShip is transfered (including in the constructor)
 
@@ -22,6 +27,9 @@ contract Ownable {
 }
 
 //  TODO's: Create a Pausable contract that inherits from the Ownable contract
+contract Pausable{
+
+}
 //  1) create a private '_paused' variable of type bool
 //  2) create an internal constructor that sets the _paused variable to false
 //  3) create 'whenNotPaused' & 'paused' modifier that throws in the appropriate situation
@@ -417,6 +425,7 @@ contract ERC721Metadata is ERC721Enumerable, usingOraclize {
     // TODO: Create private vars for token _name, _symbol, and _baseTokenURI (string)
 
     // TODO: create private mapping of tokenId's to token uri's called '_tokenURIs'
+     mapping (uint => Item) _tokenURIs
 
     bytes4 private constant _INTERFACE_ID_ERC721_METADATA = 0x5b5e139f;
     /*
