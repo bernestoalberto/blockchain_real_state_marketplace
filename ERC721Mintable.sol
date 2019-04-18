@@ -8,32 +8,77 @@ import "./Oraclize.sol";
 
 contract Ownable {
     //  TODO's
-     address owner;
+     address  private owner;
+
     //  1) create a private '_owner' variable of type address with a public getter function
+
     //  2) create an internal constructor that sets the _owner var to the creater of the contract 
+        constructor (address _owner) internal {
+
+         owner=_owner;
+             emit TransferOwnership(address(0), owner);
+        }
+
+
+        
+    function getOwner(){
+     return owner;
+    }
     //  3) create an 'onlyOwner' modifer that throws if called by any account other than the owner.
+
     modifier onlyOwner(){
             require(msg.sender == owner);
             _;
     }
     //  4) fill out the transferOwnership function
+    function transferOwnership(address newOwner) interal {
+        // TODO add functionality to transfer control of the contract to a newOwner.
+        require(newOwner != address(0))
+         emit ownerShip(owner , newOwner);
+        // make sure the new owner is a real address
+          require(isOwner());
+    }
+
     //  5) create an event that emits anytime ownerShip is transfered (including in the constructor)
 
-    function transferOwnership(address newOwner) public onlyOwner {
-        // TODO add functionality to transfer control of the contract to a newOwner.
-        // make sure the new owner is a real address
+     event ownerShip(address indexed oldOwner, address indexed newOwner);
 
+   /// Check if the calling address is the owner of the contract
+    function isOwner() public view returns (bool) {
+        return msg.sender == owner;
     }
 }
 
 //  TODO's: Create a Pausable contract that inherits from the Ownable contract
-contract Pausable{
+contract Pausable is Ownable{
+//  1) create a private '_paused' variable of type bool
+bool private _paused;
+private Ownable ownable;s
+//  2) create an internal constructor that sets the _paused variable to false
+constructor() internal{
+_paused = false;
 
 }
-//  1) create a private '_paused' variable of type bool
-//  2) create an internal constructor that sets the _paused variable to false
 //  3) create 'whenNotPaused' & 'paused' modifier that throws in the appropriate situation
+modifier whenNotPaused(){
+require(_paused  == false);
+_;
+}
+modifier paused(){
+require(_paused  == true);
+_;
+}
 //  4) create a Paused & Unpaused event that emits the address that triggered the event
+event Paused(address indexed _);
+event Unpaused(address indexed );
+
+
+
+}
+
+
+
+
 
 contract ERC165 {
     bytes4 private constant _INTERFACE_ID_ERC165 = 0x01ffc9a7;
