@@ -1,7 +1,7 @@
 pragma solidity >=0.4.21 <0.6.0;
 
-// import './ERC721Mintable.sol';
-
+ import './ERC721Mintable.sol';
+ 
 
 // TODO define a contract call to the zokrates generated solidity contract <Verifier> or <renamedVerifier>
 
