@@ -477,7 +477,10 @@ contract ERC721Enumerable is ERC165, ERC721 {
 contract ERC721Metadata is ERC721Enumerable, usingOraclize {
     
     // TODO: Create private vars for token _name, _symbol, and _baseTokenURI (string)
-
+        string private _name;
+        string private _symbol;
+        string private _baseTokenURI;
+        
     // TODO: create private mapping of tokenId's to token uri's called '_tokenURIs'
      mapping (uint => Item) _tokenURIs
 
@@ -492,12 +495,14 @@ contract ERC721Metadata is ERC721Enumerable, usingOraclize {
 
     constructor (string memory name, string memory symbol, string memory baseTokenURI) public {
         // TODO: set instance var values
-
+            _name = name;
+            symbol = symbol;
+            _baseTokenURI =baseTokenURI;
         _registerInterface(_INTERFACE_ID_ERC721_METADATA);
     }
 
     // TODO: create external getter functions for name, symbol, and baseTokenURI
-
+     
     function tokenURI(uint256 tokenId) external view returns (string memory) {
         require(_exists(tokenId));
         return _tokenURIs[tokenId];
