@@ -496,12 +496,22 @@ contract ERC721Metadata is ERC721Enumerable, usingOraclize {
     constructor (string memory name, string memory symbol, string memory baseTokenURI) public {
         // TODO: set instance var values
             _name = name;
-            symbol = symbol;
+            _symbol = symbol;
             _baseTokenURI =baseTokenURI;
         _registerInterface(_INTERFACE_ID_ERC721_METADATA);
     }
 
     // TODO: create external getter functions for name, symbol, and baseTokenURI
+
+    function getName() public  returns (string){
+       return _name;
+    }
+    function getSymbol() public  returns (string){
+       return _symbol; 
+    }
+    function getBaseTokenURI() public  returns (string){
+         return _baseTokenURI;
+    }
      
     function tokenURI(uint256 tokenId) external view returns (string memory) {
         require(_exists(tokenId));
@@ -511,21 +521,47 @@ contract ERC721Metadata is ERC721Enumerable, usingOraclize {
 
     // TODO: Create an internal function to set the tokenURI of a specified tokenId
     // It should be the _baseToeknURI + the tokenId in string form
+    
     // TIP #1: use strConcat() from the imported oraclizeAPI lib to set the complete token URI
+
+
     // TIP #2: you can also use uint2str() to convert a uint to a string
+
         // see https://github.com/oraclize/ethereum-api/blob/master/oraclizeAPI_0.5.sol for strConcat()
     // require the token exists before setting
+       function setTokenURI(uint256 tokenId) public{
+           string tokenIdString = uint2str(tokenId);
+            _baseTokenURI = _baseTokenURI + tokenIdString;
+       }
+
 
 }
 
 //  TODO's: Create CustomERC721Token contract that inherits from the ERC721Metadata contract. You can name this contract as you please
 //  1) Pass in appropriate values for the inherited ERC721Metadata contract
 //      - make the base token uri: https://s3-us-west-2.amazonaws.com/udacity-blockchain/capstone/
+
+
+contract CustomERC721Token is ERC721Metadata{
+
+
+     constructor(string memory name, string memory symbol, string memory baseTokenURI) public{
+      super(name,symbol,baseTokenURI);
+     }
+
 //  2) create a public mint() that does the following:
+
 //      -can only be executed by the contract owner
 //      -takes in a 'to' address, tokenId, and tokenURI as parameters
 //      -returns a true boolean upon completion of the function
 //      -calls the superclass mint and setTokenURI functions
 
+function mint(address to,uint256 tokenId,string tokenURI) public returns(bool){
+      require(msg.sender == owner);
+     super._mint(to, tokenId);
+     super.setTokenURI(tokenId);
+     return true;
 
+}
 
+}
