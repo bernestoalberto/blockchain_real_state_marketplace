@@ -17,7 +17,7 @@
  * phrase from a file you've .gitignored so it doesn't accidentally become public.
  *
  */
-
+let mnemonic ="love combine learn term announce yellow glare donor rely wave latin addict";
 // const HDWalletProvider = require('truffle-hdwallet-provider');
 // const infuraKey = "fj4jll3k.....";
 //
@@ -42,14 +42,13 @@ module.exports = {
     // tab if you use this network and you must also set the `host`, `port` and `network_id`
     // options below to some value.
     //
-     development: {
-      host: "127.0.0.1",     // Localhost (default: none)
-      port: 7545,            // Standard Ethereum port (default: none)
-      network_id: "*",       // Any network (default: none)
-     },
-     network_id: '4',
-     gas: 4500000,
-     gasPrice: 10000000000,
+    development: {
+      host: "127.0.0.1",
+      port: 7545,
+      network_id: "*", // Match any network id
+      gas: 4712388,
+      gasPrice: 100000000000
+  },
 
     // Another network with more advanced options...
     // advanced: {
@@ -78,7 +77,14 @@ module.exports = {
       // network_id: 2111,   // This network is yours, in the cloud.
       // production: true    // Treats this network as if it was a public net. (default: false)
     // }
-  },
+  rinkeby: {
+    provider: function() {
+        return new HDWalletProvider(mnemonic,"https://rinkeby.infura.io/v3/113690dcaae34346901ca1461dac091b")
+    },
+    network_id: '4',
+    "gas":      6500000,
+    "gasPrice": 100000000000
+},
 
   // Set default mocha options here, use special reporters etc.
   mocha: {
@@ -88,7 +94,7 @@ module.exports = {
   // Configure your compilers
   compilers: {
     solc: {
-      version: "0.5.2",    // Fetch exact version from solc-bin (default: truffle's version)
+      version: "0.5.0",    // Fetch exact version from solc-bin (default: truffle's version)
       // docker: true,        // Use "0.5.1" you've installed locally with docker (default: false)
       // settings: {          // See the solidity docs for advice about optimization and evmVersion
       //  optimizer: {
@@ -99,4 +105,5 @@ module.exports = {
       // }
     }
   }
+}
 }
