@@ -6,6 +6,7 @@ import 'openzeppelin-solidity/contracts/math/SafeMath.sol';
 import 'openzeppelin-solidity/contracts/token/ERC721/IERC721Receiver.sol';
 import "./Oraclize.sol";
 
+
 contract Ownable {
     //  TODO's
      address  private owner;
@@ -21,7 +22,7 @@ contract Ownable {
 
 
         
-    function getOwner() public returns(address){
+    function getOwner()public view returns(address){
      return owner;
     }
     //  3) create an 'onlyOwner' modifer that throws if called by any account other than the owner.
@@ -474,20 +475,20 @@ contract ERC721Enumerable is ERC165, ERC721 {
     }
 }
 
-contract ERC721Metadata is ERC721Enumerable {
+contract ERC721Metadata is ERC721Enumerable, usingOraclize  {
     
     // TODO: Create private vars for token _name, _symbol, and _baseTokenURI (string)
-        string private _name;
-        string private _symbol;
-        string private _baseTokenURI;
+        string private   _name;
+        string private  _symbol;
+        string private  _baseTokenURI;
 
-        using Oraclize for Oraclize;
+        //using Oraclize for Oraclize;
         
     // TODO: create private mapping of tokenId's to token uri's called '_tokenURIs'
 
      mapping (uint => string) _tokenURIs;
 
-    bytes32 private constant _INTERFACE_ID_ERC721_METADATA = 0x5b5e139f;
+    bytes4 private constant _INTERFACE_ID_ERC721_METADATA = 0x5b5e139f;
     /*
      * 0x5b5e139f ===
      *     bytes4(keccak256('name()')) ^
@@ -506,13 +507,13 @@ contract ERC721Metadata is ERC721Enumerable {
 
     // TODO: create external getter functions for name, symbol, and baseTokenURI
 
-    function getName() public  returns (string memory){
+    function getName()public  view  returns (string memory){
        return _name;
     }
-    function getSymbol() public  returns (string memory){
+    function getSymbol()public view  returns (string memory){
        return _symbol; 
     }
-    function getBaseTokenURI() public  returns (string memory){
+    function getBaseTokenURI()public view  returns (string memory){
          return _baseTokenURI;
     }
      
@@ -527,14 +528,13 @@ contract ERC721Metadata is ERC721Enumerable {
     
     // TIP #1: use strConcat() from the imported oraclizeAPI lib to set the complete token URI
 
-
     // TIP #2: you can also use uint2str() to convert a uint to a string
 
         // see https://github.com/oraclize/ethereum-api/blob/master/oraclizeAPI_0.5.sol for strConcat()
     // require the token exists before setting
        function setTokenURI(uint256 tokenId) public{
            string memory tokenIdString = uint2str(tokenId);
-            _baseTokenURI = Oraclize.strConcat(_baseTokenURI,tokenIdString);
+            _baseTokenURI = strConcat(_baseTokenURI,tokenIdString);
        }
 
 
@@ -549,7 +549,7 @@ contract CustomERC721Token is ERC721Metadata{
 
 
      constructor(string memory name, string memory symbol, string memory baseTokenURI) public{
-      super(name,symbol,baseTokenURI);
+      //super(name,symbol,baseTokenURI);
      }
 
 //  2) create a public mint() that does the following:
@@ -560,11 +560,34 @@ contract CustomERC721Token is ERC721Metadata{
 //      -calls the superclass mint and setTokenURI functions
 
 function mint(address to,uint256 tokenId,string  memory tokenURI) public returns(bool){
-      require(tokenURI == super.tokenURI(tokenId));
+    string memory strgn = _tokenURIs[tokenId];
+      require( equal(strgn,tokenURI )); 
      super._mint(to, tokenId);
      super.setTokenURI(tokenId);
      return true;
 
 }
+   function equal(string memory _a, string memory _b)public pure  returns (bool) {
+        return compare(_a, _b) == 0;
+    }
+
+   function compare(string memory _a, string memory _b) public pure  returns (int) {
+        bytes memory a = bytes(_a);
+        bytes memory b = bytes(_b);
+        uint minLength = a.length;
+        if (b.length < minLength) minLength = b.length;
+        //@todo unroll the loop into increments of 32 and do full 32 byte comparisons
+        for (uint i = 0; i < minLength; i ++)
+            if (a[i] < b[i])
+                return -1;
+            else if (a[i] > b[i])
+                return 1;
+        if (a.length < b.length)
+            return -1;
+        else if (a.length > b.length)
+            return 1;
+        else
+            return 0;
+    }
 
 }
