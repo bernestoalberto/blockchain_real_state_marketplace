@@ -17,7 +17,8 @@
  * phrase from a file you've .gitignored so it doesn't accidentally become public.
  *
  */
-let mnemonic ="love combine learn term announce yellow glare donor rely wave latin addict";
+//let mnemonic ="love combine learn term announce yellow glare donor rely wave latin addict";
+let mnemonic ="endorse hand approve near harbor elevator ketchup trade cheap lawn kite latin";
  const HDWalletProvider = require('truffle-hdwallet-provider');
 module.exports = {
   /**

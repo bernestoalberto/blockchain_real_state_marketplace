@@ -1,4 +1,4 @@
-pragma solidity ^0.5.2;
+pragma solidity ^0.5.0;
 
 import 'openzeppelin-solidity/contracts/utils/Address.sol';
 import 'openzeppelin-solidity/contracts/drafts/Counters.sol';
@@ -51,7 +51,7 @@ contract Ownable {
 }
 
 //  TODO's: Create a Pausable contract that inherits from the Ownable contract
-contract Pausable is Ownable{
+contract Pausable is Ownable {
 //  1) create a private '_paused' variable of type bool
 bool private _paused;
 //using Ownable for ownable;
@@ -548,8 +548,8 @@ contract ERC721Metadata is ERC721Enumerable, usingOraclize  {
 contract CustomERC721Token is ERC721Metadata{
 
 
-     constructor(string memory name, string memory symbol, string memory baseTokenURI) public{
-      //super(name,symbol,baseTokenURI);
+     constructor(string memory name, string memory symbol, string memory baseTokenURI)  ERC721Metadata(name,symbol,baseTokenURI) public{
+      
      }
 
 //  2) create a public mint() that does the following:
