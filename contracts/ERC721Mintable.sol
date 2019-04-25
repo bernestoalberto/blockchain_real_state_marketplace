@@ -545,10 +545,12 @@ contract ERC721Metadata is ERC721Enumerable, usingOraclize  {
 //      - make the base token uri: https://s3-us-west-2.amazonaws.com/udacity-blockchain/capstone/
 
 
-contract CustomERC721Token is ERC721Metadata{
+contract ERC721Mintable is ERC721Metadata{
+    string private _name = "EBoma";
+    string private _symbol = "EBM";
+    string private _baseTokenURI = "https://s3-us-west-2.amazonaws.com/udacity-blockchain/capstone/";
 
-
-     constructor(string memory name, string memory symbol, string memory baseTokenURI)  ERC721Metadata(name,symbol,baseTokenURI) public{
+     constructor()  ERC721Metadata(_name,_symbol,_baseTokenURI) public{
       
      }
 
@@ -559,35 +561,10 @@ contract CustomERC721Token is ERC721Metadata{
 //      -returns a true boolean upon completion of the function
 //      -calls the superclass mint and setTokenURI functions
 
-function mint(address to,uint256 tokenId,string  memory tokenURI) public returns(bool){
-    string memory strgn = _tokenURIs[tokenId];
-      require( equal(strgn,tokenURI )); 
+function mint(address to,uint256 tokenId) public returns(bool){
      super._mint(to, tokenId);
      super.setTokenURI(tokenId);
      return true;
 
 }
-   function equal(string memory _a, string memory _b)public pure  returns (bool) {
-        return compare(_a, _b) == 0;
-    }
-
-   function compare(string memory _a, string memory _b) public pure  returns (int) {
-        bytes memory a = bytes(_a);
-        bytes memory b = bytes(_b);
-        uint minLength = a.length;
-        if (b.length < minLength) minLength = b.length;
-        //@todo unroll the loop into increments of 32 and do full 32 byte comparisons
-        for (uint i = 0; i < minLength; i ++)
-            if (a[i] < b[i])
-                return -1;
-            else if (a[i] > b[i])
-                return 1;
-        if (a.length < b.length)
-            return -1;
-        else if (a.length > b.length)
-            return 1;
-        else
-            return 0;
-    }
-
 }
