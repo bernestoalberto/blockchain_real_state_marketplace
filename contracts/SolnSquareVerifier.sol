@@ -15,7 +15,7 @@ contract SolnSquareVerifier is  ERC721Mintable, Verifier {
 Verifier verifier;
  // TODO define a solutions struct that can hold index, address, and image
 struct Solution{
-   uint256 id;
+   uint256 index;
    address solutionsAddress;
   }
 constructor(address _verifierContract) ERC721Mintable()  public{
@@ -35,7 +35,7 @@ verifier = Verifier(_verifierContract);
     function addSolution(address _solutionAddress, uint256 _id, uint[2] memory A, uint[2][2] memory B,  uint[2] memory C, uint[2] memory input) public {
      	bytes32 key = keccak256(abi.encodePacked(A, B, C, input));
        	require(isSolutionUnique(key), "Solution already exsits.");
-     Solution memory sol = Solution({id: _id, solutionsAddress: _solutionAddress});
+     Solution memory sol = Solution({index: _id, solutionsAddress: _solutionAddress});
         solutionsSubmitted[key] = sol;
       solutions.push(sol);
       emit  solutionAdded(_solutionAddress);
