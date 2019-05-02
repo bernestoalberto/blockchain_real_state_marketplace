@@ -364,7 +364,7 @@ contract usingOraclize {
         return false;
     }
 
-    function __callback(bytes32 _myid, string memory _result) public pure{
+    function __callback(bytes32 _myid, string memory _result) public pure {
         __callback(_myid, _result, new bytes(0));
     }
 

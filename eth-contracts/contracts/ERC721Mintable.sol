@@ -540,7 +540,7 @@ contract ERC721Metadata is ERC721Enumerable, usingOraclize {
 //      -calls the superclass mint and setTokenURI functions
 
 contract ERC721Mintable is ERC721Metadata{
-    string private _name = "EBoma";
+   string private _name = "Eboma";
     string private _symbol = "EBM";
     string private _baseTokenCustomURI = "https://s3-us-west-2.amazonaws.com/udacity-blockchain/capstone/";
 
