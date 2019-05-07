@@ -67,9 +67,12 @@ To run truffle tests:
 # Zokrates proofs generation (Info)
 
 
-# Contract Details
-Creator: 0x4f3124C50f2ed629a55a6Bf71E2DC664Abeec4cd
-Owner:0x81d75533ed8decc5de208db6319cbc4f01bb8d16
+# Contract Creator: 
+0x4f3124C50f2ed629a55a6Bf71E2DC664Abeec4cd
+
+# Contract Owner:
+0x81d75533ed8decc5de208db6319cbc4f01bb8d16
+
 # Tx# Minted Tokens (10 tokens)
 0x12cb7911c1a9bff0b36008efa7a8fae0c8873e8cf74782f3430b3d893232ab77
 0x21f7ef8a307344d9d35ba1152378f8b7060d2d7f70e4e3728232bc4cd6e01f6f
@@ -82,20 +85,14 @@ Owner:0x81d75533ed8decc5de208db6319cbc4f01bb8d16
 0xa738cc5436f7c3a7ceea8a639518901ad3f79272bcb1c06dd1bcc0e9432e6f07
 0x49342f779161bbe2fd4af2316267d75935851779bb1782593c2b75351af91b70
 
-# OpenSea
-
-https://rinkeby.opensea.io/assets/0x81d75533ed8decc5de208db6319cbc4f01bb8d16/5
-https://s3-us-west-2.amazonaws.com/udacity-blockchain/capstone/5
-
-
-#List 5 of your tokens on the marketplace
+# OpenSea List 5 of your tokens on the marketplace
 https://rinkeby.opensea.io/assets/0x81d75533ed8decc5de208db6319cbc4f01bb8d16/1
 https://rinkeby.opensea.io/assets/0x81d75533ed8decc5de208db6319cbc4f01bb8d16/2
 https://rinkeby.opensea.io/assets/0x81d75533ed8decc5de208db6319cbc4f01bb8d16/3
 https://rinkeby.opensea.io/assets/0x81d75533ed8decc5de208db6319cbc4f01bb8d16/4
 https://rinkeby.opensea.io/assets/0x81d75533ed8decc5de208db6319cbc4f01bb8d16/5
 
-
+https://s3-us-west-2.amazonaws.com/udacity-blockchain/capstone/5
 # Sell properties
 Sell
 Tx: 
