@@ -14,7 +14,7 @@
     "lite-server": "2.4.0"
   },
   "dependencies": {
-    "bcrypt": "^3.0.6",
+    "bcrypt": "^5.0.0",
     "fs-extra": "7.0.1",
     "npm": "^6.9.0",
     "openzeppelin-solidity": "^2.2.0",
